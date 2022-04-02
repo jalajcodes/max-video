@@ -7,7 +7,7 @@ import logger from "loglevel";
 import morgan from "morgan";
 import "colors";
 import cookieParser from "cookie-parser";
-// import { getRoutes } from "./routes";
+import { getRoutes } from "./routes/index.js";
 import { errorMiddleware, setupCloseOnExit } from "./middleware/error.js";
 
 dotenv.config();
@@ -19,7 +19,7 @@ const startServer = ({ port = process.env.PORT } = {}) => {
   app.use(cookieParser());
   app.use(express.json());
 
-  //   app.use("/api/v1", getRoutes());
+  app.use("/api/v1", getRoutes());
 
   app.use(errorMiddleware);
 

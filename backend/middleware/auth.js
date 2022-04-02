@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 import jwt from "jsonwebtoken";
-
-const prisma = new PrismaClient();
 
 export async function getAuthUser(req, res, next) {
   if (!req.cookies.token) {

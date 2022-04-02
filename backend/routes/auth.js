@@ -1,18 +1,17 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma.js";
 import express from "express";
 import jwt from "jsonwebtoken";
-import { protect } from "../middleware/authorization";
+import { protect } from "../middleware/auth.js";
 import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const prisma = new PrismaClient();
 
 function getAuthRoutes() {
   const router = express.Router();
 
-  router.post("/google-login", googleLogin);
-  router.get("/me", protect, me);
-  router.get("/signout", signout);
+  router.route("/google-login").post(googleLogin);
+  router.route("/me").get(protect, me);
+  router.route("/signout").get(signout);
 
   return router;
 }
