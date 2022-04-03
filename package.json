@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Video library",
   "main": "server.js",
+  "engines": {
+    "node": "16.9.1"
+  },
   "repository": "git@github-jalajcodes:jalajcodes/max-video.git",
   "author": "jalajcodes <jalaj@mail.com>",
   "license": "MIT",
