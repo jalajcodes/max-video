@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import NotFound from "./components/NotFound";
-import Sidebar from "./components/Sidebar";
+import { Navbar, NotFound, Sidebar } from "./components";
 import { useLocationChange } from "./hooks/useLocationChange";
+import {
+  History,
+  Home,
+  Library,
+  LikedVideos,
+  Playlist,
+  Trending,
+  YourVideos,
+} from "./pages";
 import Container from "./styles/Container";
-import History from "./pages/History";
-import Library from "./pages/Library";
-import YourVideos from "./pages/YourVideos";
-import LikedVideos from "./pages/LikedVideos";
-import Playlist from "./pages/Playlist";
-import Trending from "./pages/Trending";
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);

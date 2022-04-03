@@ -20,6 +20,19 @@ const Wrapper = styled.div`
     display: none;
   }
 
+  .logo-icon {
+    width: 80px;
+    height: 24px;
+    margin-top: 8px;
+  }
+
+  .logo-text {
+    width: 80px;
+    height: 24px;
+    margin-left: -60px;
+    margin-top: 5px;
+  }
+
   .logo span {
     position: relative;
     top: 1px;

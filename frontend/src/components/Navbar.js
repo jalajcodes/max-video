@@ -21,21 +21,8 @@ const Navbar = ({ toggleSidebarOpen }) => {
         />
         <span>
           <NavLink to="/">
-            <LogoIcon
-              style={{
-                width: 80,
-                height: 24,
-                marginTop: 8,
-              }}
-            />
-            <LogoText
-              style={{
-                width: 80,
-                height: 24,
-                marginLeft: -60,
-                marginTop: 5,
-              }}
-            />
+            <LogoIcon className="logo-icon" />
+            <LogoText className="logo-text" />
           </NavLink>
         </span>
       </div>
