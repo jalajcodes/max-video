@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import VideoCard from "../components/VideoCard";
 import Wrapper from "../styles/Home";
+import { categories } from "../utils/categories";
 
 const Home = () => {
   return (
@@ -8,34 +9,14 @@ const Home = () => {
       <h1>Home</h1>
       <h2>Categories</h2>
       <div className="category">
-        <Link to="/feed/videos?genre=35" className="category-card">
-          <span>Comedy</span>
-        </Link>
-        <Link to="/feed/videos?genre=28">
-          <div className="category-card">
-            <span>Action</span>
-          </div>
-        </Link>
-        <Link to="/feed/videos?genre=27">
-          <div className="category-card">
-            <span>Horror</span>
-          </div>
-        </Link>
-        <Link to="/feed/videos?genre=10749">
-          <div className="category-card">
-            <span>Romance</span>
-          </div>
-        </Link>
-        <Link to="/feed/videos?genre=878">
-          <div className="category-card">
-            <span>Sci Fi</span>
-          </div>
-        </Link>
-        <Link to="/feed/videos?genre=9648">
-          <div className="category-card">
-            <span>Mystery</span>
-          </div>
-        </Link>
+        {categories.map((category) => (
+          <Link
+            to={`/feed/videos?genre=${category.id}`}
+            className="category-card"
+          >
+            <span>{category.name}</span>
+          </Link>
+        ))}
       </div>
       <h2>Recommended Videos</h2>
       <VideoCard
