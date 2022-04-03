@@ -12,6 +12,7 @@ import {
   Videos,
   YourVideos,
 } from "./pages";
+import WatchVideo from "./pages/WatchVideo";
 import Container from "./styles/Container";
 
 function App() {
@@ -26,9 +27,9 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/watch/:videoId" element={<Home />} />
           <Route path="/channel/:channelId" element={<Home />} />
           <Route path="/results/:searchQuery" element={<Home />} />
+          <Route path="/watch/:videoId" element={<WatchVideo />} />
           <Route path="/feed/videos" element={<Videos />} />
           <Route path="/feed/trending" element={<Trending />} />
           <Route path="/feed/playlist" element={<Playlist />} />

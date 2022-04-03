@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import VideoCard from "../components/VideoCard";
 import { VideosWrapper, Wrapper } from "../styles/Videos";
 import { fetchMovies } from "../utils/tmdb";
 import loaderSvg from "../assets/loader.svg";
+import { VideoCard } from "../components";
 
 const Videos = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -84,9 +84,7 @@ const Videos = () => {
             {data &&
               data.results.map((movie, i) => (
                 <React.Fragment key={i}>
-                  {/* {page.results.map((movie) => ( */}
                   <VideoCard key={movie.id} details={movie} />
-                  {/* ))} */}
                 </React.Fragment>
               ))}
           </>
