@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import ReactPlayer from "react-player";
 import { Link, useParams } from "react-router-dom";
 import { DislikeIcon, LikeIcon } from "../components/Icons";
 import Button from "../styles/Button";
