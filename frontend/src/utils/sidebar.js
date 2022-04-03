@@ -5,6 +5,7 @@ import {
   LikeIcon,
   SubIcon,
   TrendingIcon,
+  VideoIcon,
   VidIcon,
 } from "../components/Icons";
 
@@ -13,6 +14,11 @@ export const sidebarItems = [
     to: "/",
     label: "Home",
     icon: <HomeIcon />,
+  },
+  {
+    to: "/feed/videos",
+    label: "Videos",
+    icon: <VideoIcon />,
   },
   {
     to: "/feed/trending",
