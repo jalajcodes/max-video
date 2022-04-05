@@ -8,4 +8,6 @@ export { default as GoogleAuth } from "./GoogleAuth";
 export { default as NotFound } from "./NotFound";
 export { default as SidebarAuth } from "./SidebarAuth";
 export { default as SignupCard } from "./SignupCard";
+export { default as NoResults } from "./NoResults";
+export { default as VideoCard } from "./VideoCard";
 export * as Icons from "./Icons";

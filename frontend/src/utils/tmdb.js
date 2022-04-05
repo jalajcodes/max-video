@@ -17,4 +17,12 @@ const fetchMovies = async (genre) => {
   }
 };
 
-export { fetchMovies, IMAGE_BASE_URL, POSTER_SIZE };
+const fetchMovie = async (id) => {
+  return await (
+    await fetch(
+      `${API_URL}movie/${id}?api_key=${API_KEY}&append_to_response=videos,images`
+    )
+  ).json();
+};
+
+export { fetchMovies, fetchMovie, IMAGE_BASE_URL, POSTER_SIZE };
