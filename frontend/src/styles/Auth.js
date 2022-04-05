@@ -7,7 +7,7 @@ const Button = styled.button`
   vertical-align: middle;
   text-decoration: none;
   color: ${(props) => props.theme.primaryColor};
-  border-radius: 3px;
+  border-radius: 1rem;
   border: 1px solid ${(props) => props.theme.primaryColor};
   padding: 6px 15px;
   background-color: transparent;

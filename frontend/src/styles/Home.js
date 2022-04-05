@@ -7,7 +7,29 @@ const Wrapper = styled.div`
   padding-bottom: 7rem;
 
   h2 {
+    margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+
+  .category {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  .category-card {
+    display: flex;
+    background-color: ${(props) => props.theme.grey};
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    border: 1px solid ${(props) => props.theme.darkGrey};
+    cursor: pointer;
+    transition: all 0.1s;
+
+    &:hover {
+      background-color: ${(props) => props.theme.darkGrey};
+      transform: translateY(0.4rem);
+    }
   }
 `;
 

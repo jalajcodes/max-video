@@ -5,3 +5,4 @@ export { default as Trending } from "./Trending";
 export { default as Library } from "./Library";
 export { default as YourVideos } from "./YourVideos";
 export { default as LikedVideos } from "./LikedVideos";
+export { default as Videos } from "./Videos";
