@@ -1,15 +1,18 @@
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { DislikeIcon, LikeIcon } from "../components/Icons";
-import Button from "../styles/Button";
 import Skeleton from "../skeletons/WatchVideoSkeleton";
 import Wrapper from "../styles/WatchVideo";
 import { formatCreatedAt } from "../utils/date";
 import { NoResults, VideoCard } from "../components";
 import { fetchMovie, fetchMovies } from "../utils/tmdb";
 import { shuffle } from "../utils/shuffle";
+import { useHistory } from "../context/historyContext";
+import { useEffect } from "react";
+import { Button } from "../styles/Button";
 
 function WatchVideo() {
+  const { addToHistory } = useHistory();
   const { videoId } = useParams();
   const { data: video, isLoading: isLoadingVideo } = useQuery(
     ["WatchVideo", videoId],
@@ -21,6 +24,12 @@ function WatchVideo() {
     () => fetchMovies("35"),
     { refetchOnWindowFocus: false }
   );
+
+  useEffect(() => {
+    if (video) {
+      addToHistory(video);
+    }
+  }, [video, addToHistory]);
 
   const getVideoUrl = (video) => {
     const trailer = video.videos.results.find((v) => {
@@ -112,7 +121,12 @@ function WatchVideo() {
             .slice(0, 2)
 
             .map((video) => (
-              <VideoCard key={video.id} hideAvatar details={video} />
+              <VideoCard
+                key={video.id}
+                hideAvatar
+                details={video}
+                page="watchvideo"
+              />
             ))}
       </div>
     </Wrapper>

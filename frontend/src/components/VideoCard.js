@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useMenuItems } from "../context/menuItemsContext";
 import useClickOutside from "../hooks/useClickOutside";
 import Wrapper from "../styles/VideoCard";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../utils/tmdb";
-import { DislikeIcon, LikeIcon, MenuIcon, SubIcon } from "./Icons";
+import { LikeIcon, MenuIcon } from "./Icons";
 
-const VideoCard = ({ details }) => {
+const VideoCard = ({ details, page }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
+  const { getMenuItems } = useMenuItems();
+  const menuItems = getMenuItems(page);
 
   useClickOutside(ref, () => setIsOpen(false));
 
@@ -33,12 +36,11 @@ const VideoCard = ({ details }) => {
         {isOpen && (
           <div className="video-menu" ref={ref}>
             <ul>
-              <li>
-                <SubIcon /> Add to Playlist
-              </li>
-              <li>
-                <SubIcon /> Save to watch later
-              </li>
+              {menuItems.map((item, idx) => (
+                <li onClick={() => item.onClick(details.id, details)} key={idx}>
+                  {item.icon} {item.name}
+                </li>
+              ))}
             </ul>
           </div>
         )}

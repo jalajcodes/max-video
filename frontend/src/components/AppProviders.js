@@ -7,6 +7,10 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import SnackbarProvider from "react-simple-snackbar";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./ErrorFallback";
+import { HistoryProvider } from "../context/historyContext";
+import { MenuItemsProvider } from "../context/menuItemsContext";
+import { PlaylistProvider } from "../context/playlistContext";
+import { ModalProvider } from "../context/modalContext";
 
 const queryClient = new QueryClient({
   queries: {
@@ -28,7 +32,13 @@ function AppProviders({ children }) {
             <ThemeProvider theme={darkTheme}>
               <GlobalStyles />
               <ReactQueryDevtools />
-              {children}
+              <HistoryProvider>
+                <PlaylistProvider>
+                  <ModalProvider>
+                    <MenuItemsProvider>{children}</MenuItemsProvider>
+                  </ModalProvider>
+                </PlaylistProvider>
+              </HistoryProvider>
             </ThemeProvider>
           </SnackbarProvider>
         </Router>
