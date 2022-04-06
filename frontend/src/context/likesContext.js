@@ -38,10 +38,6 @@ const LikesProvider = ({ children }) => {
       ...state.data,
       [type]: [...currentData, video],
     };
-    console.log(
-      "🚀 ~ file: likesContext.js ~ line 39 ~ addToLikes ~ newStateData",
-      newStateData
-    );
 
     localStorage.setItem("maxVideoUserData", JSON.stringify(newStateData));
     dispatch({ type: "ACTION_TYPE_SUCCESS", payload: newStateData });
