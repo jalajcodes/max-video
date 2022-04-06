@@ -10,19 +10,21 @@ import { shuffle } from "../utils/shuffle";
 import { useHistory } from "../context/historyContext";
 import { useEffect } from "react";
 import { Button } from "../styles/Button";
+import { useModal } from "../context/modalContext";
 
 function WatchVideo() {
   const { addToHistory } = useHistory();
+  const { toggleModal } = useModal();
   const { videoId } = useParams();
   const { data: video, isLoading: isLoadingVideo } = useQuery(
     ["WatchVideo", videoId],
     () => fetchMovie(videoId),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: Infinity }
   );
   const { data: next, isLoading: isLoadingNext } = useQuery(
     ["WatchVideo", "Up Next"],
     () => fetchMovies("35"),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: Infinity }
   );
 
   useEffect(() => {
@@ -106,7 +108,7 @@ function WatchVideo() {
             </div>
 
             <Button>Add to Watchlist</Button>
-            <Button>Add to Playlist</Button>
+            <Button onClick={() => toggleModal(video)}>Add to Playlist</Button>
           </div>
 
           <p>{video.description}</p>
