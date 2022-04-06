@@ -6,16 +6,23 @@ import Wrapper from "../styles/WatchVideo";
 import { formatCreatedAt } from "../utils/date";
 import { NoResults, VideoCard } from "../components";
 import { fetchMovie, fetchMovies } from "../utils/tmdb";
-import { shuffle } from "../utils/shuffle";
 import { useHistory } from "../context/historyContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../styles/Button";
 import { useModal } from "../context/modalContext";
+import { useLikes } from "../context/likesContext";
+import { useWatchLater } from "../context/watchLaterContext";
 
 function WatchVideo() {
   const { addToHistory } = useHistory();
   const { toggleModal } = useModal();
+  const { getVideoStatus, addToLikes, removeFromLikes } = useLikes();
   const { videoId } = useParams();
+  const { addToWatchLater, videoInWatchLater, deleteFromWatchLater } =
+    useWatchLater();
+
+  const [isInWatchLater, setIsInWatchLater] = useState(false);
+
   const { data: video, isLoading: isLoadingVideo } = useQuery(
     ["WatchVideo", videoId],
     () => fetchMovie(videoId),
@@ -30,14 +37,39 @@ function WatchVideo() {
   useEffect(() => {
     if (video) {
       addToHistory(video);
+      setIsInWatchLater(videoInWatchLater(video.id));
     }
-  }, [video, addToHistory]);
+  }, [video, addToHistory, videoInWatchLater]);
 
   const getVideoUrl = (video) => {
     const trailer = video.videos.results.find((v) => {
       return v.type === "Trailer";
     });
     return `https://www.youtube.com/embed/${trailer.key}`;
+  };
+
+  const handleIconClick = (action) => {
+    const [liked, disliked] = getVideoStatus(video.id);
+
+    if (action === "like") {
+      if (liked) {
+        return removeFromLikes(video, "like");
+      } else if (disliked) {
+        return;
+      }
+
+      return addToLikes(video, "like");
+    }
+
+    if (action === "dislike") {
+      if (disliked) {
+        return removeFromLikes(video, "dislike");
+      } else if (liked) {
+        return;
+      }
+
+      return addToLikes(video, "dislike");
+    }
   };
 
   if (isLoadingVideo) {
@@ -54,8 +86,8 @@ function WatchVideo() {
 
   return (
     <Wrapper
-      filledLike={video && video.isLiked}
-      filledDislike={video && video.isDisliked}
+      filledLike={video && getVideoStatus(video.id)[0]}
+      filledDislike={video && getVideoStatus(video.id)[1]}
     >
       <div className="video-container">
         <div className="video">
@@ -82,11 +114,17 @@ function WatchVideo() {
             </p>
 
             <div className="likes-dislikes flex-row">
-              <p className="flex-row like">
-                <LikeIcon /> <span>{video.likesCount}</span>
+              <p
+                className="flex-row like"
+                onClick={() => handleIconClick("like")}
+              >
+                <LikeIcon />
               </p>
-              <p className="flex-row dislike" style={{ marginLeft: "1rem" }}>
-                <DislikeIcon /> <span>{video.dislikesCount}</span>
+              <p
+                className="flex-row dislike"
+                onClick={() => handleIconClick("dislike")}
+              >
+                <DislikeIcon />
               </p>
             </div>
           </div>
@@ -107,7 +145,15 @@ function WatchVideo() {
               </div>
             </div>
 
-            <Button>Add to Watchlist</Button>
+            {isInWatchLater ? (
+              <Button onClick={() => deleteFromWatchLater(video.id)}>
+                Remove from Watch Later
+              </Button>
+            ) : (
+              <Button onClick={() => addToWatchLater(video)}>
+                Add to Watch Later
+              </Button>
+            )}
             <Button onClick={() => toggleModal(video)}>Add to Playlist</Button>
           </div>
 
@@ -118,7 +164,7 @@ function WatchVideo() {
       <div className="related-videos">
         <h3 className="up-next">Up Next</h3>
         {!isLoadingNext &&
-          shuffle(next.results)
+          next.results
             .filter((v) => v.id !== video.id)
             .slice(0, 2)
 

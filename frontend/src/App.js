@@ -5,14 +5,14 @@ import { useLocationChange } from "./hooks/useLocationChange";
 import {
   History,
   Home,
-  Library,
   LikedVideos,
   Playlist,
   Trending,
   Videos,
+  WatchLater,
+  WatchVideo,
   YourVideos,
 } from "./pages";
-import WatchVideo from "./pages/WatchVideo";
 import Container from "./styles/Container";
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
           <Route path="/feed/videos" element={<Videos />} />
           <Route path="/feed/trending" element={<Trending />} />
           <Route path="/feed/playlist" element={<Playlist />} />
-          <Route path="/feed/library" element={<Library />} />
+          <Route path="/feed/library" element={<WatchLater />} />
           <Route path="/feed/history" element={<History />} />
           <Route path="/feed/my_videos" element={<YourVideos />} />
           <Route path="/feed/liked_videos" element={<LikedVideos />} />

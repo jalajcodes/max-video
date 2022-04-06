@@ -11,6 +11,8 @@ import { HistoryProvider } from "../context/historyContext";
 import { MenuItemsProvider } from "../context/menuItemsContext";
 import { PlaylistProvider } from "../context/playlistContext";
 import { ModalProvider } from "../context/modalContext";
+import { LikesProvider } from "../context/likesContext";
+import { WatchLaterProvider } from "../context/watchLaterContext";
 
 const queryClient = new QueryClient({
   queries: {
@@ -32,13 +34,17 @@ function AppProviders({ children }) {
             <ThemeProvider theme={darkTheme}>
               <GlobalStyles />
               <ReactQueryDevtools />
-              <HistoryProvider>
-                <PlaylistProvider>
-                  <ModalProvider>
-                    <MenuItemsProvider>{children}</MenuItemsProvider>
-                  </ModalProvider>
-                </PlaylistProvider>
-              </HistoryProvider>
+              <WatchLaterProvider>
+                <LikesProvider>
+                  <HistoryProvider>
+                    <PlaylistProvider>
+                      <ModalProvider>
+                        <MenuItemsProvider>{children}</MenuItemsProvider>
+                      </ModalProvider>
+                    </PlaylistProvider>
+                  </HistoryProvider>
+                </LikesProvider>
+              </WatchLaterProvider>
             </ThemeProvider>
           </SnackbarProvider>
         </Router>
