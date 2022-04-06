@@ -64,10 +64,6 @@ const Wrapper = styled.div`
     margin-bottom: 1rem;
   }
 
-  svg {
-    fill: ${(props) => props.theme.darkGrey};
-  }
-
   ${(props) =>
     props.filledLike &&
     css`

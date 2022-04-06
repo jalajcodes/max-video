@@ -1,16 +1,16 @@
-import Button from "../styles/Auth";
+import { ButtonGhost } from "../styles/Button";
 import { SignInIcon } from "./Icons";
 
 function GoogleAuth() {
   return (
-    <Button tabIndex={0} type="button">
+    <ButtonGhost tabIndex={0} type="button">
       <span className="outer">
         <span className="inner">
           <SignInIcon />
         </span>
         sign in
       </span>
-    </Button>
+    </ButtonGhost>
   );
 }
 

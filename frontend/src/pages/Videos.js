@@ -84,7 +84,7 @@ const Videos = () => {
             {data &&
               data.results.map((movie, i) => (
                 <React.Fragment key={i}>
-                  <VideoCard key={movie.id} details={movie} />
+                  <VideoCard key={movie.id} details={movie} page="videos" />
                 </React.Fragment>
               ))}
           </>

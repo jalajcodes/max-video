@@ -1,26 +1,37 @@
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { DislikeIcon, LikeIcon } from "../components/Icons";
-import Button from "../styles/Button";
 import Skeleton from "../skeletons/WatchVideoSkeleton";
 import Wrapper from "../styles/WatchVideo";
 import { formatCreatedAt } from "../utils/date";
 import { NoResults, VideoCard } from "../components";
 import { fetchMovie, fetchMovies } from "../utils/tmdb";
 import { shuffle } from "../utils/shuffle";
+import { useHistory } from "../context/historyContext";
+import { useEffect } from "react";
+import { Button } from "../styles/Button";
+import { useModal } from "../context/modalContext";
 
 function WatchVideo() {
+  const { addToHistory } = useHistory();
+  const { toggleModal } = useModal();
   const { videoId } = useParams();
   const { data: video, isLoading: isLoadingVideo } = useQuery(
     ["WatchVideo", videoId],
     () => fetchMovie(videoId),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: Infinity }
   );
   const { data: next, isLoading: isLoadingNext } = useQuery(
     ["WatchVideo", "Up Next"],
     () => fetchMovies("35"),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: Infinity }
   );
+
+  useEffect(() => {
+    if (video) {
+      addToHistory(video);
+    }
+  }, [video, addToHistory]);
 
   const getVideoUrl = (video) => {
     const trailer = video.videos.results.find((v) => {
@@ -97,7 +108,7 @@ function WatchVideo() {
             </div>
 
             <Button>Add to Watchlist</Button>
-            <Button>Add to Playlist</Button>
+            <Button onClick={() => toggleModal(video)}>Add to Playlist</Button>
           </div>
 
           <p>{video.description}</p>
@@ -112,7 +123,12 @@ function WatchVideo() {
             .slice(0, 2)
 
             .map((video) => (
-              <VideoCard key={video.id} hideAvatar details={video} />
+              <VideoCard
+                key={video.id}
+                hideAvatar
+                details={video}
+                page="watchvideo"
+              />
             ))}
       </div>
     </Wrapper>
