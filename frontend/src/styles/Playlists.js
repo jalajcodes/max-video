@@ -17,6 +17,10 @@ const Wrapper = styled.div`
     }
   }
 
+  .liked-container {
+    display: flex;
+  }
+
   .playlists-container {
     display: flex;
     flex-wrap: wrap;

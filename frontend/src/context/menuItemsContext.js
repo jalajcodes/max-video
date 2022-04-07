@@ -1,7 +1,9 @@
 import { createContext, useContext } from "react";
-import { DeleteIcon, LibIcon, SubIcon } from "../components/Icons";
+import { DeleteIcon, LibIcon, LikeIcon, SubIcon } from "../components/Icons";
 import { useHistory } from "./historyContext";
+import { useLikes } from "./likesContext";
 import { useModal } from "./modalContext";
+import { useWatchLater } from "./watchLaterContext";
 
 const MenuItemsContext = createContext({
   getMenuItems: () => {},
@@ -10,8 +12,10 @@ const MenuItemsContext = createContext({
 const MenuItemsProvider = ({ children }) => {
   const { deleteFromHistory } = useHistory();
   const { toggleModal } = useModal();
+  const { removeFromLikes, addToLikes } = useLikes();
+  const { addToWatchLater, deleteFromWatchLater } = useWatchLater();
 
-  const getMenuItems = (page) => {
+  const getMenuItems = (page, isInWatchLater, isLiked) => {
     let menuItems = [
       {
         name: "Add to Playlist",
@@ -19,9 +23,26 @@ const MenuItemsProvider = ({ children }) => {
         onClick: (_id, video) => toggleModal(video),
       },
       {
-        name: "Save to watch later",
+        name: isInWatchLater ? "Remove from Watch Later" : "Add to Watch Later",
         icon: <LibIcon />,
-        onClick: () => console.log("Save to watch later"),
+        onClick: (id, video) => {
+          if (isInWatchLater) {
+            deleteFromWatchLater(id);
+          } else {
+            addToWatchLater(video);
+          }
+        },
+      },
+      {
+        name: isLiked ? "Remove from Likes" : "Add to Likes",
+        icon: isLiked ? <DeleteIcon /> : <LikeIcon />,
+        onClick: (_id, video) => {
+          if (isLiked) {
+            removeFromLikes(video, "like");
+          } else {
+            addToLikes(video, "like");
+          }
+        },
       },
     ];
 
