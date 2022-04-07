@@ -7,6 +7,7 @@ import {
   Home,
   LikedVideos,
   Playlist,
+  SearchResults,
   Trending,
   Videos,
   WatchLater,
@@ -28,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/channel/:channelId" element={<Home />} />
-          <Route path="/results/:searchQuery" element={<Home />} />
+          <Route path="/results/:searchQuery" element={<SearchResults />} />
           <Route path="/watch/:videoId" element={<WatchVideo />} />
           <Route path="/feed/videos" element={<Videos />} />
           <Route path="/feed/trending" element={<Trending />} />

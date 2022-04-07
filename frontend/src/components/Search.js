@@ -18,7 +18,7 @@ function Search() {
     <Wrapper>
       <form onSubmit={handleSubmit}>
         <input id="search" type="text" placeholder="Search" />
-        <button aria-label="Search videos and channels" type="submit">
+        <button aria-label="Search videos" type="submit">
           <SearchIcon />
         </button>
       </form>
