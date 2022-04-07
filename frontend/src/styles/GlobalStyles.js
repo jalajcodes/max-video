@@ -84,6 +84,10 @@ const GlobalStyle = createGlobalStyle`
 		align-items: center;
 	}
 
+	.loaderImg {
+		margin: 0 0 0 30rem;
+	}
+
 	.flex-row img, .flex-row svg {
 		margin-right: 0.8rem;
 	}

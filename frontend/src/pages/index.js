@@ -7,3 +7,4 @@ export { default as WatchVideo } from "./WatchVideo";
 export { default as YourVideos } from "./YourVideos";
 export { default as LikedVideos } from "./LikedVideos";
 export { default as Videos } from "./Videos";
+export { default as SearchResults } from "./SearchResults";

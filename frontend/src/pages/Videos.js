@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroller";
 import { VideosWrapper, Wrapper } from "../styles/Videos";
 import { fetchMovies } from "../utils/tmdb";
 import loaderSvg from "../assets/loader.svg";
@@ -11,11 +12,15 @@ const Videos = () => {
   const params = Object.fromEntries(new URLSearchParams(searchParams));
   const selectedGenre = useRef(params.genre ? params.genre : "popular");
 
-  const { data, isFetching, refetch } = useQuery(
+  const { data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery(
     `movies`,
-    () => fetchMovies(selectedGenre.current),
+    ({ pageParam }) => fetchMovies(selectedGenre.current, pageParam),
     {
       staleTime: Infinity,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page === 8) return undefined;
+        return lastPage.page + 1;
+      },
     }
   );
 
@@ -78,19 +83,32 @@ const Videos = () => {
           Mystery
         </span>
       </Wrapper>
-      <VideosWrapper>
-        {!isFetching && (
-          <>
-            {data &&
-              data.results.map((movie, i) => (
-                <React.Fragment key={i}>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={
+          <img
+            className="loaderImg"
+            key={Date.now()}
+            src={loaderSvg}
+            alt="loading..."
+          />
+        }
+        // useWindow={false}
+        threshold={50}
+      >
+        <VideosWrapper>
+          {data &&
+            data.pages.map((page, i) => (
+              <React.Fragment key={i}>
+                {page.results.map((movie) => (
                   <VideoCard key={movie.id} details={movie} page="videos" />
-                </React.Fragment>
-              ))}
-          </>
-        )}
-        {isFetching && <img src={loaderSvg} alt="Loading..." />}
-      </VideosWrapper>
+                ))}
+              </React.Fragment>
+            ))}
+        </VideosWrapper>
+      </InfiniteScroll>
     </>
   );
 };
