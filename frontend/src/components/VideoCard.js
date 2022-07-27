@@ -1,4 +1,3 @@
-import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLikes } from "../context/likesContext";
@@ -7,7 +6,7 @@ import { useWatchLater } from "../context/watchLaterContext";
 import useClickOutside from "../hooks/useClickOutside";
 import Wrapper from "../styles/VideoCard";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../utils/tmdb";
-import { MenuIcon, SettingsIcon } from "./Icons";
+import { MenuIcon } from "./Icons";
 
 const VideoCard = ({ details, page }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +22,7 @@ const VideoCard = ({ details, page }) => {
   useClickOutside(ref, () => setIsOpen(false));
 
   return (
-    <Wrapper>
+    <Wrapper page={page}>
       <Link to={`/watch/${details.id}`} replace="true" className="video-image">
         <div className="image-overlay"></div>
         <img
@@ -34,26 +33,10 @@ const VideoCard = ({ details, page }) => {
       <div className="video-details">
         <h3>
           <Link to={`/watch/${details.id}`}>{details.title} </Link>
-          <div>
-            <Menu>
-              <MenuButton>
-                <SettingsIcon />
-              </MenuButton>
-              <MenuList>
-                {menuItems.map((item, idx) => (
-                  <MenuItem
-                    onSelect={() => item.onClick(details.id, details)}
-                    key={idx}
-                  >
-                    {item.icon} {item.name}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
-          </div>
+          <MenuIcon onClick={() => setIsOpen((prev) => !prev)} />{" "}
         </h3>
         <p>{details.overview}</p>
-        {/* {isOpen && (
+        {isOpen && (
           <div className="video-menu" ref={ref}>
             <ul>
               {menuItems.map((item, idx) => (
@@ -63,7 +46,7 @@ const VideoCard = ({ details, page }) => {
               ))}
             </ul>
           </div>
-        )} */}
+        )}
       </div>
     </Wrapper>
   );

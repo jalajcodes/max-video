@@ -14,6 +14,11 @@ const Wrapper = styled.div`
   .category {
     display: flex;
     margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
   }
 
   .category-card {
@@ -25,6 +30,10 @@ const Wrapper = styled.div`
     border: 1px solid ${(props) => props.theme.darkGrey};
     cursor: pointer;
     transition: all 0.1s;
+
+    @media (max-width: 768px) {
+      flex: 1 1;
+    }
 
     &:hover {
       background-color: ${(props) => props.theme.darkGrey};

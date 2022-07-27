@@ -88,12 +88,14 @@ const Videos = () => {
         loadMore={fetchNextPage}
         hasMore={hasNextPage}
         loader={
-          <img
-            className="loaderImg"
-            key={Date.now()}
-            src={loaderSvg}
-            alt="loading..."
-          />
+          <div>
+            <img
+              className="loaderImg"
+              key={Date.now()}
+              src={loaderSvg}
+              alt="loading..."
+            />
+          </div>
         }
         // useWindow={false}
         threshold={50}

@@ -86,6 +86,9 @@ const GlobalStyle = createGlobalStyle`
 
 	.loaderImg {
 		margin: 0 0 0 30rem;
+		@media (max-width: 768px) {
+			display: none;
+		}
 	}
 
 	.flex-row img, .flex-row svg {

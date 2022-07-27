@@ -9,6 +9,12 @@ const Wrapper = styled.div`
   height: 25rem;
   margin: 0 1rem 1rem 0;
 
+  @media (max-width: 768px) {
+    width: ${(props) => (props.page === "videos" ? "20rem" : "100%")};
+    margin: ${(props) =>
+      props.page === "videos" ? "1rem 0" : "0 1rem 1rem 0"};
+  }
+
   .video-image {
     position: relative;
     border-radius: 1rem 1rem 0 0;
@@ -79,6 +85,11 @@ const Wrapper = styled.div`
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    .menu-container {
+      display: grid;
+      place-items: center;
     }
   }
 
