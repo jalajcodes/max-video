@@ -23,7 +23,7 @@ const MenuItemsProvider = ({ children }) => {
         onClick: (_id, video) => toggleModal(video),
       },
       {
-        name: isInWatchLater ? "Remove from Watch Later" : "Add to Watch Later",
+        name: isInWatchLater ? "Remove from Watch Later" : "Watch Later",
         icon: <LibIcon />,
         onClick: (id, video) => {
           if (isInWatchLater) {

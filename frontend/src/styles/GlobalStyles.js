@@ -107,6 +107,57 @@ const GlobalStyle = createGlobalStyle`
 			font-size: 0.9rem;
 	  }
 	}
+
+	[data-reach-popover] {
+		z-index: 500;
+		background: ${(props) => props.theme.grey};
+		border: 1px solid ${(props) => props.theme.darkGrey};
+		border-radius: 1rem;
+		overflow: hidden;
+	}
+
+	[data-reach-menu-list] {
+		width: 200px;
+		background: ${(props) => props.theme.grey};
+		cursor: pointer;
+		border-radius: 0 2px 2px 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-size: 1rem;
+	}
+
+	[data-reach-menu-list]:focus {
+		outline: none;
+	}
+
+	[data-reach-menu-item] {
+		padding: 10px 20px;
+		display: flex;
+		align-items: center;
+
+		svg {
+			height: 30px;
+			width: 30px;
+			margin-right: 16px;
+		}
+	}
+
+	[data-reach-menu-item]:hover, [data-reach-menu-item]:active, [data-reach-menu-item]:focus {
+		background-color: ${(props) => props.theme.darkGrey};
+	}
+
+	[data-reach-menu-item]:not(:hover) {
+		background: ${(props) => props.theme.grey};
+	}
+
+	[data-reach-menu-button] {
+		background: none;
+    border: none;
+	}
+
+	div[class^='Snackbar'], div[class*='Snackbar'] {
+    z-index: 1000;
+  }
 `;
 
 export default GlobalStyle;

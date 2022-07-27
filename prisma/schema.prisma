@@ -44,17 +44,18 @@ model Subscription {
 }
 
 model Video {
-  id          String      @id @default(uuid())
-  createdAt   DateTime    @default(now())
-  title       String
-  description String?
-  url         String
-  thumbnail   String
-  userId      String
-  user        User        @relation(fields: [userId], references: [id])
-  videoLikes  VideoLike[]
-  comments    Comment[]
-  views       View[]
+  id         String      @id @default(uuid())
+  videoId    String?     @unique
+  createdAt  DateTime    @default(now())
+  title      String
+  overview   String?
+  url        String
+  thumbnail  String
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  videoLikes VideoLike[]
+  comments   Comment[]
+  views      View[]
 }
 
 model VideoLike {

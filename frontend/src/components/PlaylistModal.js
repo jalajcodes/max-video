@@ -15,7 +15,7 @@ function PlaylistModal({ video }) {
   } = useModal();
 
   return (
-    <Wrapper showModal={modalData.showModal}>
+    <Wrapper showModal={modalData.showPlaylistModal && modalData.selectedVideo}>
       <div className={`create-playlist`}>
         <form onSubmit={handlePlaylistFormSubmit}>
           <div className="modal-header">

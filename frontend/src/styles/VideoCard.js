@@ -89,6 +89,7 @@ const Wrapper = styled.div`
     padding: 0.5rem 0;
     background-color: ${(props) => props.theme.darkGrey};
     border-radius: 5px;
+    z-index: 100;
 
     ul {
       list-style: none;

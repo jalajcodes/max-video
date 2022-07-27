@@ -17,12 +17,25 @@ function getAuthRoutes() {
 }
 
 async function googleLogin(req, res) {
-  const { idToken } = req.body;
-  const ticket = await client.verifyIdToken({
-    idToken,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
-  const { name, picture, email } = ticket.getPayload();
+  const { idToken, username, emailAddress } = req.body;
+  let name;
+  let picture;
+  let email;
+
+  if (idToken) {
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const info = ticket.getPayload();
+    name = info.name;
+    email = info.email;
+    picture = info.picture;
+  } else if (username && emailAddress) {
+    name = username;
+    email = emailAddress;
+    picture = "https://picsum.photos/200";
+  }
 
   let user = await prisma.user.findUnique({
     where: {

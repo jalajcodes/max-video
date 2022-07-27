@@ -9,9 +9,12 @@ function Search() {
     event.preventDefault();
     const searchQuery = event.target.elements.search.value;
 
-    if (!searchQuery.trim()) return;
+    if (!searchQuery.trim()) {
+      event.target.elements.search.value = "";
+      return;
+    }
 
-    navigate(`/results/${searchQuery}`);
+    navigate(`/results/${searchQuery.trim()}`);
   }
 
   return (

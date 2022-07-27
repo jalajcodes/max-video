@@ -10,4 +10,6 @@ export { default as SidebarAuth } from "./SidebarAuth";
 export { default as SignupCard } from "./SignupCard";
 export { default as NoResults } from "./NoResults";
 export { default as VideoCard } from "./VideoCard";
+export { default as PlaylistModal } from "./PlaylistModal";
+export { default as AuthModal } from "./AuthModal";
 export * as Icons from "./Icons";

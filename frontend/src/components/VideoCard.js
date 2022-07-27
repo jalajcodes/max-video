@@ -1,3 +1,4 @@
+import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLikes } from "../context/likesContext";
@@ -6,7 +7,7 @@ import { useWatchLater } from "../context/watchLaterContext";
 import useClickOutside from "../hooks/useClickOutside";
 import Wrapper from "../styles/VideoCard";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../utils/tmdb";
-import { MenuIcon } from "./Icons";
+import { MenuIcon, SettingsIcon } from "./Icons";
 
 const VideoCard = ({ details, page }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +34,26 @@ const VideoCard = ({ details, page }) => {
       <div className="video-details">
         <h3>
           <Link to={`/watch/${details.id}`}>{details.title} </Link>
-          <MenuIcon onClick={() => setIsOpen((prev) => !prev)} />{" "}
+          <div>
+            <Menu>
+              <MenuButton>
+                <SettingsIcon />
+              </MenuButton>
+              <MenuList>
+                {menuItems.map((item, idx) => (
+                  <MenuItem
+                    onSelect={() => item.onClick(details.id, details)}
+                    key={idx}
+                  >
+                    {item.icon} {item.name}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </div>
         </h3>
         <p>{details.overview}</p>
-        {isOpen && (
+        {/* {isOpen && (
           <div className="video-menu" ref={ref}>
             <ul>
               {menuItems.map((item, idx) => (
@@ -46,7 +63,7 @@ const VideoCard = ({ details, page }) => {
               ))}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
     </Wrapper>
   );
