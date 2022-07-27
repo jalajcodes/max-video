@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroller";
 import { VideosWrapper, Wrapper } from "../styles/Videos";
-import { fetchMovies } from "../utils/tmdb";
 import loaderSvg from "../assets/loader.svg";
 import { VideoCard } from "../components";
+import { fetchMovies } from "../utils/api-client";
 
 const Videos = () => {
   const [searchParams, setSearchParams] = useSearchParams();

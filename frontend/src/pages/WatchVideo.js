@@ -5,13 +5,14 @@ import Skeleton from "../skeletons/WatchVideoSkeleton";
 import Wrapper from "../styles/WatchVideo";
 import { formatCreatedAt } from "../utils/date";
 import { NoResults, VideoCard } from "../components";
-import { fetchMovie, fetchMovies } from "../utils/tmdb";
+import { getVideoUrl } from "../utils/tmdb";
 import { useHistory } from "../context/historyContext";
 import { useEffect, useState } from "react";
 import { Button } from "../styles/Button";
 import { useModal } from "../context/modalContext";
 import { useLikes } from "../context/likesContext";
 import { useWatchLater } from "../context/watchLaterContext";
+import { fetchMovie, fetchMovies } from "../utils/api-client";
 
 function WatchVideo() {
   const { addToHistory } = useHistory();
@@ -40,13 +41,6 @@ function WatchVideo() {
       setIsInWatchLater(videoInWatchLater(video.id));
     }
   }, [video, addToHistory, videoInWatchLater]);
-
-  const getVideoUrl = (video) => {
-    const trailer = video.videos.results.find((v) => {
-      return v.type === "Trailer";
-    });
-    return `https://www.youtube.com/embed/${trailer.key}`;
-  };
 
   const handleIconClick = (action) => {
     const [liked, disliked] = getVideoStatus(video.id);

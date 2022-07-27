@@ -13,6 +13,7 @@ import { PlaylistProvider } from "../context/playlistContext";
 import { ModalProvider } from "../context/modalContext";
 import { LikesProvider } from "../context/likesContext";
 import { WatchLaterProvider } from "../context/watchLaterContext";
+import { AuthProvider } from "../context/authContext";
 
 const queryClient = new QueryClient({
   queries: {
@@ -30,23 +31,25 @@ function AppProviders({ children }) {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <SnackbarProvider>
-            <ThemeProvider theme={darkTheme}>
-              <GlobalStyles />
-              <ReactQueryDevtools />
-              <WatchLaterProvider>
-                <LikesProvider>
-                  <HistoryProvider>
-                    <PlaylistProvider>
-                      <ModalProvider>
-                        <MenuItemsProvider>{children}</MenuItemsProvider>
-                      </ModalProvider>
-                    </PlaylistProvider>
-                  </HistoryProvider>
-                </LikesProvider>
-              </WatchLaterProvider>
-            </ThemeProvider>
-          </SnackbarProvider>
+          <AuthProvider>
+            <SnackbarProvider>
+              <ThemeProvider theme={darkTheme}>
+                <GlobalStyles />
+                <ReactQueryDevtools />
+                <WatchLaterProvider>
+                  <LikesProvider>
+                    <HistoryProvider>
+                      <PlaylistProvider>
+                        <ModalProvider>
+                          <MenuItemsProvider>{children}</MenuItemsProvider>
+                        </ModalProvider>
+                      </PlaylistProvider>
+                    </HistoryProvider>
+                  </LikesProvider>
+                </WatchLaterProvider>
+              </ThemeProvider>
+            </SnackbarProvider>
+          </AuthProvider>
         </Router>
       </QueryClientProvider>
     </ErrorBoundary>

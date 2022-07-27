@@ -3,16 +3,17 @@ const initialModalState = {
   selectedPlaylists: [],
   playlistFormError: "",
   playlistName: "",
-  showModal: false,
+  showPlaylistModal: false,
   showNewPlaylistForm: false,
+  showAuthsModal: false,
 };
 
 const modalReducer = (state, action) => {
   switch (action.type) {
-    case "TOGGLE_MODAL":
+    case "TOGGLE_PLAYLIST_MODAL":
       return {
         ...state,
-        showModal: !state.showModal,
+        showPlaylistModal: !state.showPlaylistModal,
         selectedVideo: action.payload,
       };
 
@@ -31,6 +32,9 @@ const modalReducer = (state, action) => {
 
     case "SET_SELECTED_PLAYLISTS":
       return { ...state, selectedPlaylists: action.payload };
+
+    case "TOGGLE_AUTH_MODAL":
+      return { ...state, showAuthModal: !state.showAuthModal };
 
     default:
       return state;

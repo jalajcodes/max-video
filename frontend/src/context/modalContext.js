@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { useSnackbar } from "react-simple-snackbar";
-import PlaylistModal from "../components/PlaylistModal";
+import { AuthModal, PlaylistModal } from "../components";
 import { initialModalState, modalReducer } from "../reducer/modalReducer";
 import { usePlaylist } from "./playlistContext";
 
@@ -17,19 +17,23 @@ const ModalProvider = ({ children }) => {
   const { playlistData, createPlaylist, addToPlaylist, deleteFromPlaylist } =
     usePlaylist();
   const [modal, dispatch] = useReducer(modalReducer, initialModalState);
-  const toggleModal = (video) => {
-    dispatch({ type: "TOGGLE_MODAL", payload: video });
+  const toggleModal = (video, modal = "") => {
+    if (video) {
+      dispatch({ type: "TOGGLE_PLAYLIST_MODAL", payload: video });
 
-    const videoInPlaylists = playlistData.reduce(
-      (acc, { name, videos }) =>
-        videos.some(({ id }) => id === video.id) ? [...acc, name] : acc,
-      []
-    );
+      const videoInPlaylists = playlistData.reduce(
+        (acc, { name, videos }) =>
+          videos.some(({ id }) => id === video.id) ? [...acc, name] : acc,
+        []
+      );
 
-    dispatch({
-      type: "SET_SELECTED_PLAYLISTS",
-      payload: videoInPlaylists,
-    });
+      dispatch({
+        type: "SET_SELECTED_PLAYLISTS",
+        payload: videoInPlaylists,
+      });
+    } else if (modal === "auth") {
+      dispatch({ type: "TOGGLE_AUTH_MODAL" });
+    }
   };
 
   const handlePlaylistFormSubmit = (event) => {
@@ -80,6 +84,7 @@ const ModalProvider = ({ children }) => {
     <ModalContext.Provider value={value}>
       {children}
       <PlaylistModal />
+      <AuthModal />
     </ModalContext.Provider>
   );
 };

@@ -1,10 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 import Wrapper from "../styles/Sidebar";
 import { sidebarItems } from "../utils/sidebar";
 import SidebarAuth from "./SidebarAuth";
 
 function Sidebar({ isSidebarOpen }) {
+  const user = useAuth();
+
   return (
     <Wrapper open={isSidebarOpen}>
       {sidebarItems.map((item) => (
@@ -25,7 +28,7 @@ function Sidebar({ isSidebarOpen }) {
 
       <div className="divider"></div>
 
-      <SidebarAuth />
+      {!user && <SidebarAuth />}
     </Wrapper>
   );
 }

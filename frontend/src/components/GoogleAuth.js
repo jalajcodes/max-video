@@ -1,9 +1,12 @@
 import { ButtonGhost } from "../styles/Button";
 import { SignInIcon } from "./Icons";
+import { useModal } from "../context/modalContext";
 
 function GoogleAuth() {
+  const { toggleModal } = useModal();
+
   return (
-    <ButtonGhost tabIndex={0} type="button">
+    <ButtonGhost onClick={() => toggleModal(null, "auth")}>
       <span className="outer">
         <span className="inner">
           <SignInIcon />

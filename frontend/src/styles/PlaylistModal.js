@@ -21,15 +21,40 @@ const Wrapper = styled.div`
   background: rgba(0, 0, 0, 0.7);
   animation: ${openModal} 0.2s ease-in-out;
 
-  .create-playlist {
+  .create-playlist,
+  .auth-wrapper {
     width: 30rem;
+    padding: 1rem;
     border-radius: 4px;
     background: ${(props) => props.theme.grey};
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4), 0px 0px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
   }
 
   .hide {
     display: none;
+  }
+
+  .auth-wrapper {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      align-self: center;
+      margin: 0.3rem;
+    }
+
+    .modal-header h3 {
+      display: block;
+
+      svg {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
   }
 
   div.modal-header {

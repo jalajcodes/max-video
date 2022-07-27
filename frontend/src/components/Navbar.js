@@ -7,11 +7,16 @@ import {
   LogoIcon,
   LogoText,
   SettingsIcon,
+  UploadIcon,
 } from "./Icons";
 import Search from "./Search";
 import GoogleAuth from "./GoogleAuth";
+import { useAuth } from "../context/authContext";
+import UserDropdown from "./UserDropdown";
 
 const Navbar = ({ toggleSidebarOpen }) => {
+  const user = useAuth();
+
   return (
     <Wrapper>
       <div className="logo flex-row">
@@ -30,15 +35,9 @@ const Navbar = ({ toggleSidebarOpen }) => {
       <Search />
 
       <ul>
-        <li>
-          <AppsIcon />
-        </li>
-        <li>
-          <SettingsIcon />
-        </li>
-        <li>
-          <GoogleAuth />
-        </li>
+        <li>{user ? <UploadIcon /> : <AppsIcon />}</li>
+        <li>{user ? <AppsIcon /> : <SettingsIcon />}</li>
+        <li>{user ? <UserDropdown user={user} /> : <GoogleAuth />}</li>
       </ul>
     </Wrapper>
   );
