@@ -2,7 +2,7 @@
 
 Video Library Application built using React, Node, Prisma and Postgres.
 
-Live: https://max-video.herokuapp.com
+Live: ~https://max-video.herokuapp.com~ https://max-video.onrender.com/
 
 # 🚀 Features
 
